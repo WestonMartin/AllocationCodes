@@ -1,0 +1,16 @@
+Test for Tables within GitHub
+
+| P&L Allocation | Short Form | Long Form | Region Allocation Number | Short Form | Long Form | Department Allocation Number | Short Form | Long Form | Location Allocation Number | Short Form | Long Form | Services Allocation Number | Short Form | Long Form |
+| ---	| ---	| ---	| ---	| ---	| ---	| ---	| ---	| ---	| ---	| ---	| ---	| ---	| ---	| --- |
+| 4000-	| #-	| Income | 10-  | CO- | Central Office	| UN-	| UN- | Unassigned | UN_ | UN_- | Unassigned | UN | UN | Unassigned |
+
+Test for Tables within GitHub
+
+| P&L Allocation      | Short Form | Long Form       | Region Allocation Number | Short Form | Long Form       | Department Allocation Number | Short Form | Long Form   | Location Allocation Number | Short Form | Long Form   | Services Allocation Number | Short Form | Long Form   |
+|---------------------|------------|------------------|----------------------------|------------|------------------|-------------------------------|------------|-------------|-----------------------------|------------|-------------|-----------------------------|------------|-------------|
+| 4000-              | #-         | Income          | 10-                        | CO-        | Central Office  | UN-                           | UN-        | Unassigned | UN_                         | UN_-       | Unassigned | UN                          | UN         | Unassigned  |
+
+| Column A | Column B | Column C |
+|----------|----------|----------|
+| A1       | B1       | C1       |
+| A2       | B2       | C2       |
