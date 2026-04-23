@@ -31,14 +31,14 @@ Create a specific, granular key that combines different references of specific s
     > Use "CreateLocations.js" Google Script to create Initial Spreadsheet with data.
       >> Format column headers correctly
       >> Add specific locations data 
-        >>> Region & Type of Location
+        - Region & Type of Location
 
 3. Fill in remaining data.
   - Use existing data to update the rest of the data via an Index match.
     > Use "AllocationLookup.js" Google Script to search for missing data using existing data as a reference.
       >> Searches for missing data within the index sheet of "INDEX_LaborAllocationKey"
       >> Uses exisiting data as a search key.
-        >>> Return specific data into specific corresponding columns.
+        - Return specific data into specific corresponding columns.
 
 4. Review Data
   - Search for missing or incomplete data
