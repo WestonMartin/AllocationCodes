@@ -6,16 +6,19 @@ Business needs a way to track their expenses and their revenue based upon specif
 Create a specific, granular key that combines different references of specific sectors of the business. This will allow for Business Intelligence and Financial tracking in order to create profit and loss analysis and strategic improvement opportunites. 
 
 -- **<ins>FILES</ins>** --
-1. "*Labor Allocation Key*" Google Sheet [LINK](https://docs.google.com/spreadsheets/d/1YcU6ti_ddN0_VVt2CAcDE614BZL1iN-6rq6q930r9BA/edit?gid=1538980541#gid=1538980541)
-2. "*Master Location & Payor Standardized Naming*" Google Sheet [LINK](https://docs.google.com/spreadsheets/d/1xew3Fz8rNAwvZk8FN6g8eATSc1I0curJoea75LL7cus/edit?gid=0#gid=0)
-3. "*CreateLocations.js*" Google Script
-4. "*AllocationLookup.js*" Google Script
+1. Google Sheet: "*Labor Allocation Key*"
+  - Tab: [*INDEX_LaborAllocationKey*](GoogleSheets/Labor%20Allocation%20Key_INDEX_LaborAllocationKey.png)
+  - Tab: [*Income_Allocation*](GoogleSheets/Labor%20Allocation%20Key_Income_Allocation.png)
+2. Google Sheet: "*Master Location & Payor Standardized Naming*"
+  - Tab: [*School Naming*](GoogleSheets/Master%20Location%20&%20Payor%20Standardized%20Naming_School%20Naming.png)
+3. Google Script: ["*CreateLocations.js*"](GoogleScripts/CreateLocations.js)
+4. Google Script: ["*AllocationLookup.js*"](GoogleScripts/AllocationLookup.js)
 
 -- **<ins>PROCESS</ins>** -- 
 1. **Create Labor Allocation Codes framework**
   - Business sectors are identified and broken down using a specific string for each sector.
     * Reference: "*Labor Allocation Key*"
-      - Tab: "*INDEX_LaborAllocationKey*"
+      - Tab: [*Income_Allocation*](GoogleSheets/Labor%20Allocation%20Key_Income_Allocation.png)
     - Business sectors:
       - P&L
       - Region
@@ -26,16 +29,16 @@ Create a specific, granular key that combines different references of specific s
 2. **Create a spreadsheet with all possible references, starting by greatest order of magnitude (Work Locations)**
   - All work locations are added from their master google sheet
     - Reference: "*Master Location & Payor Standarized Naming*"
-      - Tab: "*School Naming*"
+      - Tab: [*School Naming*](GoogleSheets/Master%20Location%20&%20Payor%20Standardized%20Naming_School%20Naming.png)
   - Copy all locations into spreadsheet.
-    - Use "*CreateLocations.js*" Google Script to create Initial Spreadsheet with data.
+    - Use ["*CreateLocations.js*"](GoogleScripts/CreateLocations.js) to create Initial Spreadsheet with data.
       - Format column headers correctly
       - Add specific locations data
         - Region & Type of Location
 
 3. **Fill in remaining data**
   - Use existing data to update the rest of the data via an Index match.
-    - Use "*AllocationLookup.js*" Google Script to search for missing data using existing data as a reference.
+    - Use ["*AllocationLookup.js*"](GoogleScripts/AllocationLookup.js) to search for missing data using existing data as a reference.
       - Searches for missing data within the index sheet of "*INDEX_LaborAllocationKey*"
       - Uses exisiting data as a search key.
         - Return specific data into specific corresponding columns.
