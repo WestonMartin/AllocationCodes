@@ -1,4 +1,4 @@
-function buildIncomeAllocation() {
+function CreateLocations() {
   const file1Id = "1xew3Fz8rNAwvZk8FN6g8eATSc1I0curJoea75LL7cus"; // School Naming file
   const file2 = SpreadsheetApp.getActiveSpreadsheet();
 

@@ -1,4 +1,4 @@
-function fillIncomeAllocationData() {
+function AllocationLookup() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
 
   const incomeSheet = ss.getSheetByName("Income_Allocation");
