@@ -1,75 +1,49 @@
 # LaborAllocationCodes
-Creation &amp; Referential Labor Allocation Codes
+-- PROBLEM --
+Business needs a way to track their expenses and their revenue based upon specific sectors of the business.
 
-# **<ins>Process:</ins>**
-- Determine DataSet needed - from largest data pool to smallest:
-- Create an Index with this dataset:
-1. Determine the list of _services_ where Labor/Revenue will be earmarked. (i.e. Speech Therapy | Occupational Therapy | Behavior Service, etc)
-2. Determine the list of _locations_ where Labor/Revenue will be earmarked. (i.e. Clinics & Schools, etc)
-3. Determine the list of _departments_ where Labor/Revenue will be earmarked. (i.e. Services, Operations, Admin, etc)
-4. Determine the list of _Regions_ where Labor/Revenue will be earmarked. (i.e. Central, Middle TN, West TN)
-5. Determine the list of _P&L_ where Labor/Revenue will be earmarked. (i.e. Income, Direct (Cost of Sales), Indirect (Expense), SGA)
+-- SOLUTION --
+Create a specific, granular key that combines different references of specific sectors of the business. This will allow for Business Intelligence and Financial tracking in order to create profit and loss analysis and strategic improvement opportunites. 
 
-- Create a spreadsheet with all possible Labor Allocation Codes to cross-reference exported datasets exported from the EMRs.
-- To create spreadsheet, create a Google Script that will take a pre-set list of services, multiplying them by the number of locations involved.
-- Insert the following columns "Service Allocation" "Region Allocation" "Department Allocation" "Location Allocation" and insert their corresponding short/long form version.
-- Based upon the data provided, add new columns with a function (Function 1) in a each corresponding column to provide the numerical version of the Allocations stated aboved.
-- Add a new column and insert a function (Function 2) to accumulate all of the Allocations to create a final "Labor Allocation String" through which to book revenue for P&L analysis.
-- Use this Allocation key combined with a function (function 3) to map Payroll expenses exported from EMRs to a specific allocation key.
+-- FILES --
+1. "Labor Allocation Key" Google Sheet (https://docs.google.com/spreadsheets/d/1YcU6ti_ddN0_VVt2CAcDE614BZL1iN-6rq6q930r9BA/edit?gid=1538980541#gid=1538980541)
+2. "Master Location & Payor Standardized Naming" Google Sheet (https://docs.google.com/spreadsheets/d/1xew3Fz8rNAwvZk8FN6g8eATSc1I0curJoea75LL7cus/edit?gid=0#gid=0)
+3. "CreateLocations.js" Google Script
+4. "AllocationLookup.js" Google Script
 
-# **<ins>Index for Labor Allocations:</ins>**
+-- PROCESS -- 
+1. Create Labor Allocation Codes framework
+  - Business sectors are identified and broken down using a specific string for each sector.
+    > Reference: "Labor Allocation Key"
+      >> Tab: "INDEX_LaborAllocationKey"
+    > Business sectors:
+      >> P&L
+      >> Region
+      >> Department
+      >> Location
+      >> Services
 
-| <ins>P&L Allocation</ins> | <ins>Short Form</ins> | <ins>Long Form</ins> | <ins>Region Allocation Number</ins> | <ins>Short Form</ins> | <ins>Long Form</ins> | <ins>Department Allocation Number</ins> | <ins>Short Form</ins> | <ins>Long Form</ins> | <ins>Location Allocation Number</ins> | <ins>Short Form</ins> | <ins>Long Form</ins> | <ins>Services Allocation Number</ins> | <ins>Short Form</ins> | <ins>Long Form</ins> |
-| ---	| ---	| ---	| ---	| ---	| ---	| ---	| ---	| ---	| ---	| ---	| ---	| ---	| ---	| --- |
-| 4000-	| #- | Income | 10-  | CO- | Central Office	| UN-	| UN- | Unassigned | UN_ | UN_- | Unassigned | UN | UN | Unassigned |
-| 5000-	|	Direct-	|	Direct (Cost of Sales) | 20- | MT- | Middle Tennessee | 10- | School- | Services: School | 100- | Charter- | School_Charter | 01 | ST | Speech Therapy |
-| 6000-	|	Opex-	|	Indirect (Expense) | 30- | WT- | West Tennessee | 20- | Clinic- | Services: Clinic | 200- | District- | School_District | 02 | OT | Occupational Therapy |
-| 7000-	|	SGA- | SGA | | | | 30- | CS- | Client Support | 300- | IND- | Schools_Independent	|	03 | LI |	Low Incidence Services |
-| | | | | | | 40- |	OPS- | Operations | 301- | NAS- |	Clinic_Nashville | 04 |	BX | Behavior Services |
-| | | | | | | 50- |	Admin- | Admin | 302- |	FRA- | Clinic_Franklin | 05 |	PSY |	Psychological Services |
-| | | | | | | | | | 303- | NOL- | Clinic_Nolensville | 06 |	CNS |	Counseling Services |
-| | | | | | | | | | 304- | SMY- | Clinic_Smyrna |	07 | SPED | Academic Services |
+2. Create a spreadsheet with all possible references, starting by greatest order of magnitude. (Work Locations)
+  - All work locations are added from their master google sheet
+    > Reference: "Master Location & Payor Standarized Naming"
+      >> Tab: "School Naming"
+  - Copy all locations into spreadsheet.
+    > Use "CreateLocations.js" Google Script to create Initial Spreadsheet with data.
+      >> Format column headers correctly
+      >> Add specific locations data 
+        >>> Region & Type of Location
 
-# **<ins>Google Script</ins>**
-```
-function duplicateRows() {
-  const ss = SpreadsheetApp.getActiveSpreadsheet(); // Open the active spreadsheet
-  const sheet = ss.getSheetByName("New Codes - Labor Allocation Key"); // Specify sheet name
-  
-  const range = sheet.getDataRange();
-  const data = range.getValues();
-  
-  const numDuplicates = 7; // Replace with your desired number of copies
-  const newData = []; // Only for duplicated rows, header not included
+3. Fill in remaining data.
+  - Use existing data to update the rest of the data via an Index match.
+    > Use "AllocationLookup.js" Google Script to search for missing data using existing data as a reference.
+      >> Searches for missing data within the index sheet of "INDEX_LaborAllocationKey"
+      >> Uses exisiting data as a search key.
+        >>> Return specific data into specific corresponding columns.
 
-  // Start duplicating rows from A2 onward (skip the header row)
-  for (let i = 1; i < data.length; i++) { // Start from index 1 (A2)
-    newData.push(data[i]); // Original row
-    for (let j = 0; j < numDuplicates; j++) {
-      newData.push(data[i]); // Duplicate row X times
-    }
-  }
-  
-  // Clear existing rows **below the header**
-  sheet.getRange(2, 1, sheet.getLastRow() - 1, data[0].length).clearContent();
-  
-  // Write the duplicated rows back starting from A2
-  sheet.getRange(2, 1, newData.length, newData[0].length).setValues(newData);
-}
-```
-# <ins>Function 1</ins>
-```
-=INDEX('Labor Allocation Key_Index'!D:D,Match(E2,'Labor Allocation Key_Index'!E:E,0))
-```
+4. Review Data
+  - Search for missing or incomplete data
+    > Change or fill any data manually that is missed or incomplete.
 
-# <ins>Function 2</ins>
-```
-=H2&I2&J2&K2&L2
-```
-
-# <ins>Function 3</ins>
-```
-=IFERROR(Index(ImportRange(""1YcU6ti_ddN0_VVt2CAcDE614BZL1iN-6rq6q930r9BA"", ""New Codes - Labor Allocation Key!A:A""),
-Match(1, (ImportRange(""1YcU6ti_ddN0_VVt2CAcDE614BZL1iN-6rq6q930r9BA"", ""New Codes - Labor Allocation Key!C:C"")="INSERT LOCATION CELL#") *
-(ImportRange(""1YcU6ti_ddN0_VVt2CAcDE614BZL1iN-6rq6q930r9BA"", ""New Codes - Labor Allocation Key!D:D"")="INSERT SERVICE CELL #"),0)),""Not Found") 
-```
+5. Compile Full LaborAllocationKey
+  - Use ArrayFormula to compile the full LaborAllocationKey for each Service at each Location.
+    > =ARRAYFORMULA(C2:C&E2:E&H2:H&K2:K&N2:N&Q2:Q)
