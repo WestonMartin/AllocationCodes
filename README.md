@@ -1,20 +1,20 @@
-# LaborAllocationCodes
--- **<ins>PROBLEM</ins>** -- <br/>
+# LaborAllocationCodes_Readme
+# -- **<ins>PROBLEM</ins>** -- <br/>
 Business needs a way to track their expenses and their revenue based upon specific sectors of the business.
 
--- **<ins>SOLUTION</ins>** -- <br/>
+# -- **<ins>SOLUTION</ins>** -- <br/>
 Create a specific, granular key that combines different references of specific sectors of the business. This will allow for Business Intelligence and Financial tracking in order to create profit and loss analysis and strategic improvement opportunites. 
 
--- **<ins>FILES</ins>** --
+# -- **<ins>FILES</ins>** --
 1. Google Sheet: "*Labor Allocation Key*"
   - Tab: [*INDEX_LaborAllocationKey*](GoogleSheets/Labor%20Allocation%20Key_INDEX_LaborAllocationKey.png)
   - Tab: [*Income_Allocation*](GoogleSheets/Labor%20Allocation%20Key_Income_Allocation.png)
 2. Google Sheet: "*Master Location & Payor Standardized Naming*"
   - Tab: [*School Naming*](GoogleSheets/Master%20Location%20&%20Payor%20Standardized%20Naming_School%20Naming.png)
-3. Google Script: ["*CreateLocations.js*"](GoogleScripts/CreateLocations.js)
-4. Google Script: ["*AllocationLookup.js*"](GoogleScripts/AllocationLookup.js)
+3. Google Script: [*CreateLocations*](GoogleScripts/CreateLocations.js)
+4. Google Script: [*AllocationLookup*](GoogleScripts/AllocationLookup.js)
 
--- **<ins>PROCESS</ins>** -- 
+# -- **<ins>PROCESS</ins>** -- 
 1. **Create Labor Allocation Codes framework**
   - Business sectors are identified and broken down using a specific string for each sector.
     * Reference: "*Labor Allocation Key*"
@@ -31,14 +31,14 @@ Create a specific, granular key that combines different references of specific s
     - Reference: "*Master Location & Payor Standarized Naming*"
       - Tab: [*School Naming*](GoogleSheets/Master%20Location%20&%20Payor%20Standardized%20Naming_School%20Naming.png)
   - Copy all locations into spreadsheet.
-    - Use ["*CreateLocations.js*"](GoogleScripts/CreateLocations.js) to create Initial Spreadsheet with data.
+    - Use [*CreateLocations*](GoogleScripts/CreateLocations.js) to create Initial Spreadsheet with data.
       - Format column headers correctly
       - Add specific locations data
         - Region & Type of Location
 
 3. **Fill in remaining data**
   - Use existing data to update the rest of the data via an Index match.
-    - Use ["*AllocationLookup.js*"](GoogleScripts/AllocationLookup.js) to search for missing data using existing data as a reference.
+    - Use [*AllocationLookup*](GoogleScripts/AllocationLookup.js) to search for missing data using existing data as a reference.
       - Searches for missing data within the index sheet of "*INDEX_LaborAllocationKey*"
       - Uses exisiting data as a search key.
         - Return specific data into specific corresponding columns.
